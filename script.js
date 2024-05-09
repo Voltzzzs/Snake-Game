@@ -1,5 +1,6 @@
 const playground = document.querySelector(".playground");
 const snake = document.querySelector(".snake");
+const head = document.querySelector(".head");
 const body = document.querySelector("body");
 
 let lastK = "";
@@ -8,9 +9,10 @@ let snakes = [];
 let ycord = 3;
 let xcord = 3;
 
-playground.appendChild(snake);
-snake.style.gridColumn = 3;
-snake.style.gridRow = 3;
+head.style.gridColumn = 3;
+head.style.gridRow = 3;
+
+playground.appendChild(head);
 
 let intervalId;
 
@@ -20,75 +22,115 @@ document.body.addEventListener("keydown", (event) => {
     case "w":
       if (lastK !== "s" && lastK !== "w") {
         lastK = "w";
-        ycord--;
         intervalId = setInterval(() => {
           ycord--;
-        }, 150);
+        }, 100);
       }
       break;
 
     case "s":
       if (lastK !== "w" && lastK !== "s") {
         lastK = "s";
-        ycord++;
         intervalId = setInterval(() => {
           ycord++;
-        }, 150);
+        }, 100);
       }
       break;
 
     case "d":
       if (lastK !== "d" && lastK !== "a") {
         lastK = "d";
-        xcord++;
         intervalId = setInterval(() => {
           xcord++;
-        }, 150);
+        }, 100);
       }
       break;
 
     case "a":
       if (lastK !== "a" && lastK !== "d") {
         lastK = "a";
-        xcord--;
         clearInterval(intervalId);
         intervalId = setInterval(() => {
           xcord--;
-        }, 150);
+        }, 100);
       }
       break;
   }
 });
 
+let tailR = [];
+let tailC = [];
+let numtails = 0;
+
+createTail();
+createTail();
+createTail();
+createTail();
+createTail();
+createTail();
+createTail();
+createTail();
+
+
+
+
 
 setInterval(() => {
-    snake.style.gridColumn = xcord;
-    snake.style.gridRow = ycord;
-  }, 10);
+    head.style.gridColumn = xcord;
+    head.style.gridRow = ycord;
+  
+    for (let i = 1; i <= numtails; i++){
+      let tailElement = document.querySelector(`.po${i}`)
+  
+      tailElement.style.gridColumn = tailC[i];
+      tailElement.style.gridRow = tailR[i];
+  }
+  
+  }, 1);
+
+setInterval(() => {
+    if (tailC.length > numtails) {
+      tailC.pop();
+      tailR.pop();
+    }
+  
+    let c = getCLocation();
+    let r = getRLocation();
+  
+    tailC.unshift(c);
+    tailR.unshift(r);
+  
+    console.log(tailC, tailR);
+  }, 100);
+  
 
 
 
 
-
-let tailR = []
-let tailC = []
 
 function getCLocation() {
-   
-    const computedStyle = window.getComputedStyle(snake);
+  const computedStyle = window.getComputedStyle(snake);
+
+  const gridColumn = computedStyle.gridColumn;
+
+  return gridColumn;
+}
+
+function getRLocation() {
+  let computedStyle = window.getComputedStyle(snake);
+
+  let gridRow = computedStyle.gridRow;
+
+  return gridRow;
+}
 
 
-    const gridColumn = computedStyle.gridColumn;
 
+function createTail() {
+    numtails++;
+    let tailler = document.createElement("div");
+    playground.appendChild(tailler);
+    tailler.className = `snake po${numtails}`;
+  }
   
-    return gridColumn;
-}
 
-function getRLocation(){
-
-    let computedStyle = window.getComputedStyle(snake);
-    
-    let gridRow = computedStyle.gridRow;
-
-    return gridRow;
-}

@@ -17,10 +17,15 @@ body{
     border-radius: 10px;
     width: 90vh;
     height: 90vh;
-    grid-template-columns: repeat(15, 1fr);
-    grid-template-rows: repeat(15, 1fr);
+    grid-template-columns: repeat(30, 1fr);
+    grid-template-rows: repeat(30, 1fr);
 }
 
 .snake{
     background-color: rgb(52, 71, 33);
+}
+
+.head{
+    background-color: rgb(52, 71, 33);
+    border-radius: 10px;
 }

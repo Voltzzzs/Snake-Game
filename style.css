@@ -1,0 +1,26 @@
+body{
+    background-color: rgb(65, 136, 112);
+    width: 100vw;
+    height: 100vh;
+    align-content: center;
+    user-select: none;
+    overflow: hidden;
+}
+
+.playground{
+    background-color: rgb(69, 99, 89);
+    display: grid;
+    top: 3vh;
+    position: absolute;
+    left: 25%;
+    border: solid rgb(66, 95, 52) 10px;
+    border-radius: 10px;
+    width: 90vh;
+    height: 90vh;
+    grid-template-columns: repeat(15, 1fr);
+    grid-template-rows: repeat(15, 1fr);
+}
+
+.snake{
+    background-color: rgb(52, 71, 33);
+}
